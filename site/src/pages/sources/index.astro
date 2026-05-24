@@ -1,17 +1,47 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const sources = (await getCollection('sources')).sort((a, b) =>
+  (a.data.year ?? 0) - (b.data.year ?? 0),
+);
 ---
 
 <BaseLayout title="Sources | PerfectBlu" description="Source records and citation guidance for PerfectBlu.">
   <section class="page-heading">
     <p class="eyebrow">Citation backbone</p>
     <h1>Sources</h1>
-    <p class="lede">Source records will define editions, citation formats, and source notes.</p>
+    <p class="lede">Source records define editions, citation formats, and source notes.</p>
+  </section>
+
+  <section class="list-section" aria-labelledby="source-records">
+    <h2 id="source-records">Source records</h2>
+    {
+      sources.length > 0 ? (
+        <div class="card-grid">
+          {sources.map((source) => (
+            <article class="card">
+              <p class="eyebrow">{source.data.year ?? 'Year TBD'}</p>
+              <h3><a href={`/sources/${source.data.slug}/`}>{source.data.title}</a></h3>
+              <p>{source.data.creators.join(', ')} | {source.data.medium}</p>
+              <p class="meta">Status: {source.data.status}</p>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>No source records have been added yet.</p>
+      )
+    }
   </section>
 </BaseLayout>
 
 <style>
   .page-heading h1 {
     max-width: none;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 0.92rem;
   }
 </style>

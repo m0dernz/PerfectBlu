@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const sources = await getCollection('sources');
+  return sources.map((source) => ({
+    params: { slug: source.data.slug },
+    props: { source },
+  }));
+}
+
+const { source } = Astro.props;
+const { Content } = await render(source);
+---
+
+<BaseLayout title={`${source.data.title} | PerfectBlu`} description={`Source record for ${source.data.title}.`}>
+  <article class="detail-page">
+    <p class="eyebrow">{source.data.medium} | {source.data.year ?? 'Year TBD'}</p>
+    <h1>{source.data.title}</h1>
+
+    <dl class="metadata">
+      <div>
+        <dt>Creators</dt>
+        <dd>{source.data.creators.join(', ')}</dd>
+      </div>
+      <div>
+        <dt>Continuity</dt>
+        <dd>{source.data.continuity.join(', ')}</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>{source.data.status}</dd>
+      </div>
+      <div>
+        <dt>Citation style</dt>
+        <dd>{source.data.citation_style ?? 'TBD'}</dd>
+      </div>
+    </dl>
+
+    <div class="content-body">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
