@@ -74,6 +74,7 @@ const timeline = defineCollection({
     related_works: z.array(z.string()).default([]),
     certainty: z.enum(['known', 'approximate', 'inferred', 'disputed']).default('approximate'),
     spoiler_level: spoilerLevel,
+    summary: z.string().optional(),
     sources: z.array(sourceReference).default([]),
   }),
 });

@@ -1,5 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tags = [
+  ['frank-herbert-core', 'Frank Herbert core', 'The six Frank Herbert novels.'],
+  ['expanded-novels', 'Expanded novels', 'Brian Herbert and Kevin J. Anderson novels.'],
+  ['comic-adaptation', 'Comic adaptation', 'Comics and graphic adaptations.'],
+  ['film-1984', '1984 film', 'The 1984 film continuity.'],
+  ['miniseries-2000', '2000 miniseries', 'The 2000 and 2003 television miniseries continuity.'],
+  ['film-2021-series', '2021 film series', 'The Denis Villeneuve film continuity.'],
+  ['game-continuity', 'Game continuity', 'Video game continuities.'],
+  ['secondary-source', 'Secondary source', 'Commentary, reference, and analysis sources.'],
+];
 ---
 
 <BaseLayout title="Continuity | PerfectBlu" description="Continuity labels used by PerfectBlu.">
@@ -7,6 +18,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <p class="eyebrow">Clearly labeled canon</p>
     <h1>Continuity</h1>
     <p class="lede">Continuity labels keep Frank Herbert core material, expanded novels, and adaptations distinct.</p>
+  </section>
+
+  <section class="list-section" aria-labelledby="continuity-tags">
+    <h2 id="continuity-tags">Continuity tags</h2>
+    <div class="card-grid">
+      {tags.map(([id, label, description]) => (
+        <article class="card">
+          <p class="eyebrow">{id}</p>
+          <h3>{label}</h3>
+          <p>{description}</p>
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>
 
