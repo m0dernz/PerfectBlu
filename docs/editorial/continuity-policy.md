@@ -10,10 +10,21 @@ Initial labels:
 - `expanded-novels`: Brian Herbert and Kevin J. Anderson novels
 - `comic-adaptation`: comics and graphic adaptations
 - `film-1984`: the 1984 film continuity
-- `miniseries-2000`: the 2000 and 2003 miniseries continuity
+- `miniseries-2000`: the 2000 and 2003 television miniseries continuity
 - `film-2021-series`: the Denis Villeneuve film continuity
 - `game-continuity`: video game continuity
 - `secondary-source`: commentary or reference material
+
+## Default ordering
+
+When a page contains multiple continuities, order sections like this:
+
+1. Frank Herbert core
+2. Expanded novels
+3. Comics and graphic adaptations
+4. Screen adaptations
+5. Games
+6. Secondary sources
 
 ## Conflict handling
 
@@ -35,3 +46,20 @@ Entity pages may include continuity-specific sections when needed:
 
 ## Adaptations
 ```
+
+## Frontmatter example
+
+```yaml
+continuity:
+  - frank-herbert-core
+status: draft
+```
+
+If an entity appears in several continuities, include all applicable tags and separate facts in the body.
+
+## Review checklist
+
+- Continuity tags match the body content.
+- Adaptation-specific facts are labeled as adaptation-specific.
+- Disputed or contradictory facts are not flattened into one claim.
+- Pages that need further editorial review use `disputed` or `draft` status.
