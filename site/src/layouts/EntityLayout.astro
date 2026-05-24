@@ -1,0 +1,36 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+const { entry } = Astro.props;
+const description = entry.data.summary ?? `PerfectBlu encyclopedia entry for ${entry.data.title}.`;
+---
+
+<BaseLayout title={`${entry.data.title} | PerfectBlu`} description={description}>
+  <article class="detail-page">
+    <p class="eyebrow">{entry.data.entity_type}</p>
+    <h1>{entry.data.title}</h1>
+
+    <dl class="metadata">
+      <div>
+        <dt>Continuity</dt>
+        <dd>{entry.data.continuity.join(', ')}</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>{entry.data.status}</dd>
+      </div>
+      <div>
+        <dt>Spoiler level</dt>
+        <dd>{entry.data.spoiler_level}</dd>
+      </div>
+      <div>
+        <dt>First appearance</dt>
+        <dd>{entry.data.first_appearance ?? 'TBD'}</dd>
+      </div>
+    </dl>
+
+    <div class="content-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

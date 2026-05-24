@@ -1,0 +1,36 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+const { entry } = Astro.props;
+const description = entry.data.summary ?? `PerfectBlu timeline entry for ${entry.data.title}.`;
+---
+
+<BaseLayout title={`${entry.data.title} | PerfectBlu`} description={description}>
+  <article class="detail-page">
+    <p class="eyebrow">Timeline entry</p>
+    <h1>{entry.data.title}</h1>
+
+    <dl class="metadata">
+      <div>
+        <dt>Sequence</dt>
+        <dd>{entry.data.sequence ?? 'TBD'}</dd>
+      </div>
+      <div>
+        <dt>Continuity</dt>
+        <dd>{entry.data.continuity.join(', ')}</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>{entry.data.status}</dd>
+      </div>
+      <div>
+        <dt>Certainty</dt>
+        <dd>{entry.data.certainty}</dd>
+      </div>
+    </dl>
+
+    <div class="content-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
