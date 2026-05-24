@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const works = (await getCollection('works')).sort((a, b) =>
+  (a.data.publication_date ?? '').localeCompare(b.data.publication_date ?? ''),
+);
+---
+
+<BaseLayout title="Works | PerfectBlu" description="DUNE works tracked by PerfectBlu.">
+  <section class="page-heading">
+    <p class="eyebrow">Primary sources first</p>
+    <h1>Works</h1>
+    <p class="lede">
+      PerfectBlu starts with the six Frank Herbert novels before expanding to other
+      DUNE media and clearly labeled continuities.
+    </p>
+  </section>
+
+  <section class="list-section" aria-labelledby="core-six">
+    <h2 id="core-six">Frank Herbert core six</h2>
+    {
+      works.length > 0 ? (
+        <div class="card-grid">
+          {works.map((work) => (
+            <article class="card">
+              <p class="eyebrow">{work.data.publication_date ?? 'Date TBD'}</p>
+              <h3><a href={`/works/${work.data.slug}/`}>{work.data.title}</a></h3>
+              <p>{work.data.summary}</p>
+              <p class="meta">Status: {work.data.status} | Spoilers: {work.data.spoiler_level}</p>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>No works have been added yet.</p>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .page-heading h1 {
+    max-width: none;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+</style>

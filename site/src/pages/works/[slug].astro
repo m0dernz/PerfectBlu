@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const works = await getCollection('works');
+  return works.map((work) => ({
+    params: { slug: work.data.slug },
+    props: { work },
+  }));
+}
+
+const { work } = Astro.props;
+const { Content } = await render(work);
+---
+
+<BaseLayout title={`${work.data.title} | PerfectBlu`} description={work.data.summary}>
+  <article class="work-detail">
+    <p class="eyebrow">{work.data.medium} | {work.data.publication_date ?? 'Date TBD'}</p>
+    <h1>{work.data.title}</h1>
+
+    <dl class="metadata">
+      <div>
+        <dt>Creators</dt>
+        <dd>{work.data.creators.join(', ')}</dd>
+      </div>
+      <div>
+        <dt>Continuity</dt>
+        <dd>{work.data.continuity.join(', ')}</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>{work.data.status}</dd>
+      </div>
+      <div>
+        <dt>Spoiler level</dt>
+        <dd>{work.data.spoiler_level}</dd>
+      </div>
+    </dl>
+
+    <div class="content-body">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .work-detail h1 {
+    max-width: none;
+  }
+
+  .metadata {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .metadata div {
+    padding: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    background: rgba(16, 42, 71, 0.55);
+  }
+
+  dt {
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  dd {
+    margin: 0.25rem 0 0;
+  }
+
+  .content-body {
+    max-width: 48rem;
+  }
+</style>
