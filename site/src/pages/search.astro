@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Search | PerfectBlu" description="Search PerfectBlu's static DUNE reference pages.">
+  <section class="page-heading">
+    <p class="eyebrow">Static search</p>
+    <h1>Search</h1>
+    <p class="lede">
+      Search is generated at build time. It does not require a database or server runtime.
+    </p>
+  </section>
+
+  <section class="search-panel" aria-labelledby="search-heading">
+    <h2 id="search-heading">Find entries</h2>
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <div id="search"></div>
+  </section>
+
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.PagefindUI) {
+        new window.PagefindUI({
+          element: '#search',
+          showSubResults: true,
+          showImages: false,
+          resetStyles: false,
+        });
+      }
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .page-heading h1 {
+    max-width: none;
+  }
+
+  .search-panel {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: rgba(16, 42, 71, 0.55);
+  }
+
+  .search-panel h2 {
+    margin-top: 0;
+  }
+
+  :global(.pagefind-ui__search-input) {
+    border-color: var(--line) !important;
+    background: #06101f !important;
+    color: var(--text) !important;
+  }
+
+  :global(.pagefind-ui__result-title a) {
+    color: var(--accent) !important;
+  }
+
+  :global(.pagefind-ui__result-excerpt),
+  :global(.pagefind-ui__message) {
+    color: var(--muted) !important;
+  }
+</style>
