@@ -55,6 +55,7 @@ const encyclopedia = defineCollection({
     related_entities: z.array(z.string()).default([]),
     source_priority: z.enum(['primary', 'secondary', 'mixed']).default('primary'),
     spoiler_level: spoilerLevel,
+    summary: z.string().optional(),
     sources: z.array(sourceReference).default([]),
   }),
 });

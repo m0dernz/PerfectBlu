@@ -1,17 +1,47 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('encyclopedia')).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title),
+);
 ---
 
 <BaseLayout title="Encyclopedia | PerfectBlu" description="Encyclopedia entries for the DUNE universe.">
   <section class="page-heading">
     <p class="eyebrow">Structured knowledge</p>
     <h1>Encyclopedia</h1>
-    <p class="lede">Entity pages will appear here as the Frank Herbert core content is built out.</p>
+    <p class="lede">Entity pages for people, factions, places, concepts, and other DUNE universe subjects.</p>
+  </section>
+
+  <section class="list-section" aria-labelledby="entries-heading">
+    <h2 id="entries-heading">Entries</h2>
+    {
+      entries.length > 0 ? (
+        <div class="card-grid">
+          {entries.map((entry) => (
+            <article class="card">
+              <p class="eyebrow">{entry.data.entity_type}</p>
+              <h3><a href={`/encyclopedia/${entry.data.slug}/`}>{entry.data.title}</a></h3>
+              <p>{entry.data.summary}</p>
+              <p class="meta">Status: {entry.data.status} | Spoilers: {entry.data.spoiler_level}</p>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>No encyclopedia entries have been added yet.</p>
+      )
+    }
   </section>
 </BaseLayout>
 
 <style>
   .page-heading h1 {
     max-width: none;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 0.92rem;
   }
 </style>
