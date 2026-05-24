@@ -1,0 +1,22 @@
+- id: person
+  label: Person
+- id: lineage
+  label: Lineage
+- id: faction
+  label: Faction or organization
+- id: planet
+  label: Planet
+- id: location
+  label: Location
+- id: concept
+  label: Concept or terminology
+- id: technology
+  label: Technology
+- id: religion
+  label: Religion or philosophy
+- id: event
+  label: Event
+- id: substance
+  label: Substance
+- id: work
+  label: Work

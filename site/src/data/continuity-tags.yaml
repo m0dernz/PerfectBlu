@@ -1,0 +1,24 @@
+- id: frank-herbert-core
+  label: Frank Herbert core
+  description: The six Frank Herbert novels.
+- id: expanded-novels
+  label: Expanded novels
+  description: Brian Herbert and Kevin J. Anderson novels.
+- id: comic-adaptation
+  label: Comic adaptation
+  description: Comics and graphic adaptations.
+- id: film-1984
+  label: 1984 film
+  description: The 1984 film continuity.
+- id: miniseries-2000
+  label: 2000 miniseries
+  description: The 2000 and 2003 television miniseries continuity.
+- id: film-2021-series
+  label: 2021 film series
+  description: The Denis Villeneuve film continuity.
+- id: game-continuity
+  label: Game continuity
+  description: Video game continuities.
+- id: secondary-source
+  label: Secondary source
+  description: Commentary, reference, and analysis sources.
