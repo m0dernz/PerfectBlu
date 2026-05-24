@@ -1,0 +1,47 @@
+---
+name: Content task
+description: Track source-backed content work
+title: "Content: "
+labels: [content]
+body:
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What page, entity, source, or continuity area needs work?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: List known sources or mark TBD.
+      placeholder: Frank Herbert, Dune, chapter reference TBD.
+    validations:
+      required: true
+  - type: dropdown
+    id: continuity
+    attributes:
+      label: Continuity
+      options:
+        - frank-herbert-core
+        - expanded-novels
+        - comic-adaptation
+        - film-1984
+        - miniseries-2000
+        - film-2021-series
+        - game-continuity
+        - secondary-source
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Editorial checks
+      options:
+        - label: Avoid long copyrighted excerpts.
+          required: true
+        - label: Keep uncertain exact references marked TBD.
+          required: true
+        - label: Label continuity-specific facts clearly.
+          required: true

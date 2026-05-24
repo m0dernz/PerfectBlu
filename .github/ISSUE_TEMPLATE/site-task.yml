@@ -1,0 +1,21 @@
+---
+name: Site task
+description: Track site, build, design, or infrastructure work
+title: "Site: "
+labels: [site]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should change?
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification
+      description: How should this be tested?
+      placeholder: npm run check; npm run build
+    validations:
+      required: true
