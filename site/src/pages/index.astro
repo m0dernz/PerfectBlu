@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="PerfectBlu"
+  description="A lightweight, source-first knowledge base for the DUNE universe."
+>
+  <section class="hero">
+    <p class="eyebrow">Blue within blue within blue</p>
+    <h1>PerfectBlu</h1>
+    <p class="lede">
+      A source-first, lightweight reference for the DUNE universe, beginning with the
+      six Frank Herbert novels and expanding outward through clearly labeled continuities.
+    </p>
+  </section>
+
+  <section aria-labelledby="starting-scope">
+    <h2 id="starting-scope">Starting scope</h2>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Core six first</h3>
+        <p>Phase 1 focuses on the six Frank Herbert novels before expanding to later media.</p>
+      </article>
+      <article class="card">
+        <h3>Source discipline</h3>
+        <p>Every factual page should identify its sources and continuity boundaries.</p>
+      </article>
+      <article class="card">
+        <h3>Static by default</h3>
+        <p>Pre-rendered pages, minimal JavaScript, and build-time indexes keep the site fast.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
