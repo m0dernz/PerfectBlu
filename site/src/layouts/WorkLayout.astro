@@ -1,11 +1,13 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import RelationshipLinks from '../components/RelationshipLinks.astro';
+import StatusBadge from '../components/StatusBadge.astro';
 
-const { work } = Astro.props;
+const { work, introducedEntities = [] } = Astro.props;
 const description = work.data.summary ?? `PerfectBlu source page for ${work.data.title}.`;
 ---
 
-<BaseLayout title={`${work.data.title} | PerfectBlu`} description={description}>
+<BaseLayout title={`${work.data.title} | PerfectBlu`} description={description} section="Works">
   <article class="detail-page">
     <p class="eyebrow">{work.data.medium} | {work.data.publication_date ?? 'Date TBD'}</p>
     <h1>{work.data.title}</h1>
@@ -21,7 +23,7 @@ const description = work.data.summary ?? `PerfectBlu source page for ${work.data
       </div>
       <div>
         <dt>Status</dt>
-        <dd>{work.data.status}</dd>
+        <dd><StatusBadge status={work.data.status} /></dd>
       </div>
       <div>
         <dt>Spoiler level</dt>
@@ -32,6 +34,8 @@ const description = work.data.summary ?? `PerfectBlu source page for ${work.data
     <div class="content-body">
       <slot />
     </div>
+
+    <RelationshipLinks title="Introduced entities" items={introducedEntities} />
   </article>
 </BaseLayout>
 

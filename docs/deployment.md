@@ -2,6 +2,22 @@
 
 PerfectBlu is designed to deploy as a static website.
 
+## Chosen initial target
+
+The initial deployment target is GitHub Pages, published from the `main` branch through GitHub Actions.
+
+Production URL:
+
+```text
+https://m0dernz.github.io/PerfectBlu/
+```
+
+Deployment workflow:
+
+```text
+.github/workflows/pages.yml
+```
+
 ## Build output
 
 The production build is generated from the `site/` directory:
@@ -18,12 +34,27 @@ Static files are written to:
 site/dist/
 ```
 
-## Recommended hosts
+## GitHub Pages settings
 
-Any static host can serve PerfectBlu. Good fits include:
+Recommended repository setting:
+
+```text
+Pages source: GitHub Actions
+```
+
+The deployment workflow runs these steps:
+
+1. Install dependencies with `npm ci`.
+2. Run `npm run check`.
+3. Run `npm run build`.
+4. Upload `site/dist/` as the Pages artifact.
+5. Deploy the artifact to GitHub Pages.
+
+## Alternative hosts
+
+Any static host can serve PerfectBlu. Other good fits include:
 
 - Cloudflare Pages
-- GitHub Pages
 - Netlify
 - Vercel static output
 
@@ -55,18 +86,6 @@ If Netlify asks for a publish directory relative to the base directory, use:
 ```text
 dist
 ```
-
-## GitHub Pages direction
-
-GitHub Pages can be used, but the workflow should publish `site/dist/` after running:
-
-```bash
-cd site
-npm ci
-npm run build
-```
-
-Add a dedicated deploy workflow only after the repository hosting target is chosen.
 
 ## Search deployment note
 

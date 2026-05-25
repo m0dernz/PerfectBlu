@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const basePath = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
 <BaseLayout title="Search | PerfectBlu" description="Search PerfectBlu's static DUNE reference pages.">
@@ -13,18 +14,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="search-panel" aria-labelledby="search-heading">
     <h2 id="search-heading">Find entries</h2>
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <link href={`${basePath}pagefind/pagefind-ui.css`} rel="stylesheet" />
     <div id="search"></div>
   </section>
 
-  <script is:inline src="/pagefind/pagefind-ui.js"></script>
-  <script is:inline>
+  <script is:inline src={`${basePath}pagefind/pagefind-ui.js`}></script>
+  <script is:inline define:vars={{ pagefindBase: `${basePath}pagefind/` }}>
     window.addEventListener('DOMContentLoaded', () => {
       if (window.PagefindUI) {
         new window.PagefindUI({
           element: '#search',
+          bundlePath: pagefindBase,
           showSubResults: true,
           showImages: false,
+          showFilters: true,
           resetStyles: false,
         });
       }

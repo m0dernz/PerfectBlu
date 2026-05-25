@@ -17,6 +17,10 @@ The name PerfectBlu alludes to the Eyes of Ibad: blue within blue within blue.
 
 Current direction: build a static website with structured Markdown or MDX content, strong citations, and minimal JavaScript.
 
+Initial deployment target:
+
+- `https://m0dernz.github.io/PerfectBlu/`
+
 Project documentation:
 
 - `docs/plans/2026-05-24-perfectblu-project-plan.md`

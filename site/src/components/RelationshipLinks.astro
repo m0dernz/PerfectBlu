@@ -1,0 +1,63 @@
+---
+type RelationshipItem = {
+  label: string;
+  href?: string;
+};
+
+const { title = 'Related', items = [] } = Astro.props as {
+  title?: string;
+  items?: RelationshipItem[];
+};
+const visibleItems = items.filter((item: RelationshipItem) => item?.label);
+---
+
+{visibleItems.length > 0 && (
+  <section class="relationship-links" aria-labelledby={`relationships-${title.toLowerCase().replaceAll(' ', '-')}`}>
+    <h2 id={`relationships-${title.toLowerCase().replaceAll(' ', '-')}`}>{title}</h2>
+    <ul>
+      {visibleItems.map((item) => (
+        <li>
+          {item.href ? <a href={item.href}>{item.label}</a> : <span>{item.label}</span>}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .relationship-links {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    background: rgba(6, 16, 31, 0.55);
+  }
+
+  .relationship-links h2 {
+    margin-top: 0;
+    font-size: 1rem;
+  }
+
+  .relationship-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .relationship-links a,
+  .relationship-links span {
+    display: inline-flex;
+    padding: 0.35rem 0.65rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(16, 42, 71, 0.55);
+    text-decoration: none;
+  }
+
+  .relationship-links span {
+    color: var(--muted);
+  }
+</style>

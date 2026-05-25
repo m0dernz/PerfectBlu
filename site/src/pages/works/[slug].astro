@@ -4,16 +4,29 @@ import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const works = await getCollection('works');
+  const entities = await getCollection('encyclopedia');
+  const basePath = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+  const entityMap = new Map(entities.map((entry) => [entry.data.slug, entry]));
+  const entityLink = (slug: string) => {
+    const entity = entityMap.get(slug);
+    return entity
+      ? { label: entity.data.title, href: `${basePath}encyclopedia/${entity.data.slug}/` }
+      : { label: slug };
+  };
+
   return works.map((work) => ({
     params: { slug: work.data.slug },
-    props: { work },
+    props: {
+      work,
+      introducedEntities: work.data.introduced_entities.map((slug) => entityLink(slug)),
+    },
   }));
 }
 
-const { work } = Astro.props;
+const { work, introducedEntities } = Astro.props;
 const { Content } = await render(work);
 ---
 
-<WorkLayout work={work}>
+<WorkLayout work={work} introducedEntities={introducedEntities}>
   <Content />
 </WorkLayout>

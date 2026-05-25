@@ -4,16 +4,39 @@ import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const entries = await getCollection('timeline');
+  const entities = await getCollection('encyclopedia');
+  const works = await getCollection('works');
+  const basePath = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+  const entityMap = new Map(entities.map((entry) => [entry.data.slug, entry]));
+  const workMap = new Map(works.map((work) => [work.data.slug, work]));
+  const entityLink = (slug: string) => {
+    const entity = entityMap.get(slug);
+    return entity
+      ? { label: entity.data.title, href: `${basePath}encyclopedia/${entity.data.slug}/` }
+      : { label: slug };
+  };
+  const workLink = (slug: string) => {
+    const work = workMap.get(slug);
+    return work
+      ? { label: work.data.title, href: `${basePath}works/${work.data.slug}/` }
+      : { label: slug };
+  };
+
   return entries.map((entry) => ({
     params: { slug: entry.data.slug },
-    props: { entry },
+    props: {
+      entry,
+      participants: entry.data.participants.map((slug) => entityLink(slug)),
+      locations: entry.data.locations.map((slug) => entityLink(slug)),
+      relatedWorks: entry.data.related_works.map((slug) => workLink(slug)),
+    },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry, participants, locations, relatedWorks } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<TimelineLayout entry={entry}>
+<TimelineLayout entry={entry} participants={participants} locations={locations} relatedWorks={relatedWorks}>
   <Content />
 </TimelineLayout>

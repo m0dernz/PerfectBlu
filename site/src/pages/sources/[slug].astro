@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -14,7 +15,7 @@ const { source } = Astro.props;
 const { Content } = await render(source);
 ---
 
-<BaseLayout title={`${source.data.title} | PerfectBlu`} description={`Source record for ${source.data.title}.`}>
+<BaseLayout title={`${source.data.title} | PerfectBlu`} description={`Source record for ${source.data.title}.`} section="Sources">
   <article class="detail-page">
     <p class="eyebrow">{source.data.medium} | {source.data.year ?? 'Year TBD'}</p>
     <h1>{source.data.title}</h1>
@@ -30,7 +31,7 @@ const { Content } = await render(source);
       </div>
       <div>
         <dt>Status</dt>
-        <dd>{source.data.status}</dd>
+        <dd><StatusBadge status={source.data.status} /></dd>
       </div>
       <div>
         <dt>Citation style</dt>

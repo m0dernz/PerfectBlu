@@ -3,8 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const entries = (await getCollection('timeline')).sort((a, b) =>
-  (a.data.sequence ?? 999999) - (b.data.sequence ?? 999999),
+  (a.data.sequence ?? 9999) - (b.data.sequence ?? 9999),
 );
+const basePath = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${basePath.replace(/\/?$/, '/')}${path.replace(/^\/+/, '')}`;
 ---
 
 <BaseLayout title="Timeline | PerfectBlu" description="Timeline entries for the DUNE universe.">
@@ -22,7 +24,7 @@ const entries = (await getCollection('timeline')).sort((a, b) =>
           {entries.map((entry) => (
             <article class="card">
               <p class="eyebrow">Sequence {entry.data.sequence ?? 'TBD'}</p>
-              <h3><a href={`/timeline/${entry.data.slug}/`}>{entry.data.title}</a></h3>
+              <h3><a href={withBase(`timeline/${entry.data.slug}/`)}>{entry.data.title}</a></h3>
               <p>{entry.data.summary}</p>
               <p class="meta">Certainty: {entry.data.certainty} | Status: {entry.data.status}</p>
             </article>
